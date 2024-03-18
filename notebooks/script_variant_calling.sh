@@ -34,3 +34,13 @@ WORK_DIR=. # working directory -> absolute way of the current (working) director
 ### Quality control of the data
 ####################
 echo "> quality control of the data"
+
+mkdir -p $WORK_DIR/reports/QC # to create all folders recursively
+
+# basename and without the extension
+for file in $WORK_DIR/data/raw/*.fastq; do 
+    #fastq_file="$(basename -- $file)"
+    if [[ ! -f $WORK_DIR/reports/QC/${file} ]]; then
+        fastqc ${file} -o $WORK_DIR/reports/QC/
+    fi
+done
