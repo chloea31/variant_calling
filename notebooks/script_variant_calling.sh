@@ -10,13 +10,13 @@
 ### Activate the working environment
 ####################
 
-#conda activate EnvVelvet
+#conda activate VariantCalling
 
 ####################
 ### Running the pipeline
 ####################
 
-# in /home/Documents/Bioinformatique/personal_project/ tape: ./notebooks/script_velvet.sh
+# in /home/Documents/Bioinformatique/variant_calling/ tape: ./notebooks/script_variant_calling.sh
 
 ####################
 ### Variable initialization
