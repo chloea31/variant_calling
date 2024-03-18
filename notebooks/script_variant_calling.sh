@@ -44,3 +44,21 @@ for file in $WORK_DIR/data/raw/*.fastq; do
         fastqc ${file} -o $WORK_DIR/reports/QC/
     fi
 done
+
+##################
+### Trimming of the data
+##################
+
+##################
+### MultiQC on FASTQ files
+##################
+
+# Maybe no need to perform the multiQC, as we have only one file
+
+##################
+### Indexing and mapping: BWA
+##################
+
+##################
+### Variant calling: BCFtools
+##################
