@@ -60,6 +60,7 @@ done
 ##################
 
 bwa index -p index_db -a bwtsw data/raw/ref.fa
+bwa mem -P reports/bwa_alignment/index_db data/raw/reads.fastq > aln_output.sam
 
 ##################
 ### Variant calling: BCFtools
