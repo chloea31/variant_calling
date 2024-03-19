@@ -59,6 +59,8 @@ done
 ### Indexing and mapping: BWA
 ##################
 
+bwa index -p index_db -a bwtsw data/raw/ref.fa
+
 ##################
 ### Variant calling: BCFtools
 ##################
