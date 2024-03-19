@@ -31,6 +31,12 @@ WORK_DIR=. # working directory -> absolute way of the current (working) director
 # Data already downloaded
 
 ####################
+### Unzip FASTQ files
+####################
+
+# gunzip $WORK_DIR/data/raw/reads.fastq.gz 
+
+####################
 ### Quality control of the data
 ####################
 echo "> quality control of the data"
