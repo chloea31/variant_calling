@@ -69,5 +69,20 @@ bwa index -p index_db -a bwtsw data/raw/ref.fa
 bwa mem -P reports/bwa_alignment/index_db data/raw/reads.fastq > aln_output.sam
 
 ##################
-### Variant calling: BCFtools
+### SAMtools view: views and converts SAM/BAM files
 ##################
+
+##################
+### Variant calling: BCFtools 
+##################
+
+# Manipulates variant calls in VCF (and BCF) formats
+
+##################
+### Statistical analysis
+##################
+
+##################
+### Validation of the pipeline
+##################
+
