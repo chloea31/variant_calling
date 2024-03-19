@@ -64,13 +64,25 @@ done
 ##################
 ### Indexing and mapping: BWA
 ##################
+echo "> indexing and mapping using BWA"
 
-bwa index -p index_db -a bwtsw data/raw/ref.fa
-bwa mem -P reports/bwa_alignment/index_db data/raw/reads.fastq > aln_output.sam
+if [ ! -d $WORK_DIR/reports/bwa_alignment ]; then
+    mkdir -p $WORK_DIR/reports/bwa_alignment
+fi
+
+if [[ ! -f $WORK_DIR/reports/bwa_alignment/index_db.bwt ]]; then
+    bwa index -p index_db -a bwtsw $WORK_DIR/data/raw/ref.fa
+fi
+
+if [[ ! -f $WORK_DIR/reports/bwa_alignment/aln_output.sam ]]; then
+    bwa mem -P $WORK_DIR/reports/bwa_alignment/index_db $WORK_DIR/data/raw/reads.fastq \
+        > $WORK_DIR/reports/bwa_alignment/aln_output.sam
+fi
 
 ##################
 ### SAMtools view: views and converts SAM/BAM files
 ##################
+echo "> run SAMtools view"
 
 ##################
 ### Variant calling: BCFtools 
