@@ -84,6 +84,9 @@ fi
 ##################
 
 # Manipulates variant calls in VCF (and BCF) formats
+echo "> run bcftools mpileup"
+
+
 
 ##################
 ### Statistical analysis
