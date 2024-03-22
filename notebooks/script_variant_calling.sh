@@ -105,11 +105,12 @@ if [[ ! -f $WORK_DIR/reports/vcf/aln_output_calls.vcf.gz ]]; then
         | bcftools call -mv -Oz -o $WORK_DIR/reports/vcf/aln_output_calls.vcf.gz
 fi
 
+echo "> run bcftools index"
+
+if [[ ! -f $WORK_DIR/reports/vcf/aln_output_calls.vcf.gz.csi ]]; then
+    bcftools index $WORK_DIR/reports/vcf/aln_output_calls.vcf.gz
+fi
+
 ##################
 ### Statistical analysis
 ##################
-
-##################
-### Validation of the pipeline
-##################
-
