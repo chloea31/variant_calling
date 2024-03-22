@@ -85,6 +85,10 @@ if [[ ! -f $WORK_DIR/reports/bwa_alignment/aln_output.sam ]]; then
     # > $WORK_DIR/reports/bwa_alignment/aln_output.sam        
 fi
 
+if [[ ! -f $WORK_DIR/reports/bwa_alignment/aln_output.bam.bai ]]; then
+    samtools index $WORK_DIR/reports/bwa_alignment/aln_output.bam
+fi
+
 ##################
 ### Variant calling: BCFtools 
 ##################
