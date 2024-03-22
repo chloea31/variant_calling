@@ -79,8 +79,10 @@ if [ ! -d $WORK_DIR/reports/bwa_alignment ]; then
 fi
 
 if [[ ! -f $WORK_DIR/reports/bwa_alignment/aln_output.sam ]]; then
-    bwa mem $WORK_DIR/reports/bwa_alignment/db $WORK_DIR/data/raw/reads.fastq > $WORK_DIR/reports/bwa_alignment/aln_output.sam 
-        #| samtools view -bS -h -o $WORK_DIR/reports/bwa_alignment/aln_output.bam
+    bwa mem $WORK_DIR/reports/bwa_alignment/db $WORK_DIR/data/raw/reads.fastq \
+        | samtools view -bS -h \
+        | samtools sort -o $WORK_DIR/reports/bwa_alignment/aln_output.bam 
+    # > $WORK_DIR/reports/bwa_alignment/aln_output.sam        
 fi
 
 ##################
