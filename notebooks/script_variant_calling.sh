@@ -74,9 +74,9 @@ if [[ ! -f $WORK_DIR/reports/bwa_alignment/index_db.bwt ]]; then
     bwa index -p index_db -a bwtsw $WORK_DIR/data/raw/ref.fa
 fi
 
-if [[ ! -f $WORK_DIR/reports/bwa_alignment/aln_output2.sam ]]; then
+if [[ ! -f $WORK_DIR/reports/bwa_alignment/aln_output.bam ]]; then
     bwa mem -P $WORK_DIR/reports/bwa_alignment/index_db $WORK_DIR/data/raw/reads.fastq \
-        | samtools view -bS -h -o $WORK_DIR/reports/bwa_alignment/aln_output2.bam
+        | samtools view -bS -h -o $WORK_DIR/reports/bwa_alignment/aln_output.bam
 fi
 
 ##################
