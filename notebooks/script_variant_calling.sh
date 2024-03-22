@@ -96,7 +96,14 @@ fi
 # Manipulates variant calls in VCF (and BCF) formats
 echo "> run bcftools mpileup"
 
+if [ ! -d $WORK_DIR/reports/vcf ]; then
+    mkdir -p $WORK_DIR/reports/vcf
+fi
 
+if [[ ! -f $WORK_DIR/reports/vcf/aln_output_calls.vcf.gz ]]; then
+    bcftools mpileup -Ou -Q 20 -f $WORK_DIR/data/raw/ref.fa $WORK_DIR/reports/bwa_alignment/aln_output.bam \
+        | bcftools call -mv -Oz -o $WORK_DIR/reports/vcf/aln_output_calls.vcf.gz
+fi
 
 ##################
 ### Statistical analysis
