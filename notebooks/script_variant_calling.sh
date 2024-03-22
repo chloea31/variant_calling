@@ -66,17 +66,21 @@ done
 ##################
 echo "> indexing and mapping using BWA"
 
+if [ ! -d $WORK_DIR/data/interm/ ]; then
+    mkdir -p $WORK_DIR/data/interm
+fi
+
+if [[ ! -f $WORK_DIR/data/interm/db* ]]; then
+    bwa index db $WORK_DIR/data/raw/ref.fa
+fi
+
 if [ ! -d $WORK_DIR/reports/bwa_alignment ]; then
     mkdir -p $WORK_DIR/reports/bwa_alignment
 fi
 
-if [[ ! -f $WORK_DIR/reports/bwa_alignment/index_db.bwt ]]; then
-    bwa index -p index_db -a bwtsw $WORK_DIR/data/raw/ref.fa
-fi
-
-if [[ ! -f $WORK_DIR/reports/bwa_alignment/aln_output.bam ]]; then
-    bwa mem -P $WORK_DIR/reports/bwa_alignment/index_db $WORK_DIR/data/raw/reads.fastq \
-        | samtools view -bS -h -o $WORK_DIR/reports/bwa_alignment/aln_output.bam
+if [[ ! -f $WORK_DIR/reports/bwa_alignment/aln_output.sam ]]; then
+    bwa mem $WORK_DIR/reports/bwa_alignment/db $WORK_DIR/data/raw/reads.fastq > $WORK_DIR/reports/bwa_alignment/aln_output.sam 
+        #| samtools view -bS -h -o $WORK_DIR/reports/bwa_alignment/aln_output.bam
 fi
 
 ##################
