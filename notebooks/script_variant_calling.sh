@@ -111,6 +111,24 @@ if [[ ! -f $WORK_DIR/reports/vcf/aln_output_calls.vcf.gz.csi ]]; then
     bcftools index $WORK_DIR/reports/vcf/aln_output_calls.vcf.gz
 fi
 
+echo "> run bcftools norm"
+
+if [ ! -d $WORK_DIR/reports/norm ]; then
+    mkdir -p $WORK_DIR/reports/norm
+fi
+
+bcftools norm -f $WORK_DIR/data/raw/ref.fa $WORK_DIR/reports/vcf/aln_output_calls.vcf.gz \
+    -Oz -o $WORK_DIR/reports/norm/aln_output_norm.norm.vcf.gz
+
+echo "> run bcftools filter"
+
+if [ ! -d $WORK_DIR/reports/filter ]; then
+    mkdir -p $WORK_DIR/reports/filter
+fi
+
+bcftools filter --IndelGap 2 $WORK_DIR/reports/norm/aln_output_norm.norm.vcf.gz \
+    -Oz -o $WORK_DIR/reports/filter/aln_output_norm.norm.flt-indels.vcf.gz
+
 ##################
 ### Statistical analysis
 ##################
