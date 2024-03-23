@@ -41,13 +41,15 @@ WORK_DIR=. # working directory -> absolute way of the current (working) director
 ####################
 echo "> quality control of the data"
 
-mkdir -p $WORK_DIR/reports/QC # to create all folders recursively
+if [[ ! -d $WORK_DIR/reports/QC ]]; then
+    mkdir -p $WORK_DIR/reports/QC # to create all folders recursively
+fi
 
 # basename and without the extension
 for file in $WORK_DIR/data/raw/*.fastq; do 
-    #fastq_file="$(basename -- $file)"
-    if [[ ! -f $WORK_DIR/reports/QC/${file} ]]; then
-        fastqc ${file} -o $WORK_DIR/reports/QC/
+    fastq_file="$(basename -- $file)"
+    if [[ ! -f $WORK_DIR/reports/QC/${fastq_file%.*} ]]; then
+        fastqc ${fastq_file%.*} -o $WORK_DIR/reports/QC/
     fi
 done
 
@@ -70,7 +72,7 @@ if [ ! -d $WORK_DIR/data/interm/ ]; then
     mkdir -p $WORK_DIR/data/interm
 fi
 
-if [[ ! -f $WORK_DIR/data/interm/db* ]]; then
+if [[ ! -f $WORK_DIR/data/interm/db.bwt ]]; then
     bwa index db $WORK_DIR/data/raw/ref.fa
 fi
 
