@@ -165,6 +165,10 @@ END=100
 STEP=4
 
 echo "threshold,count" > $WORK_DIR/reports/filter/vcf_stats.csv
+
+c=$(cat $WORK_DIR/reports/norm/aln_output_norm.norm.vcf.gz | gunzip | grep -v '^#' | wc -l)
+echo "0,$c" >> $WORK_DIR/reports/filter/vcf_stats.csv # >>: to add sthing at the end of the file
+
 for i in $(seq $START $STEP $END); do
     c=$(bcftools filter --IndelGap $i $WORK_DIR/reports/norm/aln_output_norm.norm.vcf.gz \
         | grep -v '^#' | wc -l)
