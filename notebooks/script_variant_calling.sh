@@ -144,11 +144,29 @@ if [ ! -d $WORK_DIR/reports/filter ]; then
     mkdir -p $WORK_DIR/reports/filter
 fi
 
-if [ ! -f $WORK_DIR/reports/filter/aln_output_norm_2.norm.flt-indels.vcf.gz ]; then
-    bcftools filter --IndelGap 2 $WORK_DIR/reports/norm/aln_output_norm.norm.vcf.gz \
-        -Oz -o $WORK_DIR/reports/filter/aln_output_norm_2.norm.flt-indels.vcf.gz
-fi
+START=2
+END=100
+STEP=4
+
+for i in $(seq $START $STEP $END); do
+    if [ ! -f $WORK_DIR/reports/filter/aln_output_norm_${i}.norm.flt-indels.vcf.gz ]; then
+        bcftools filter --IndelGap $i $WORK_DIR/reports/norm/aln_output_norm.norm.vcf.gz \
+            -Oz -o $WORK_DIR/reports/filter/aln_output_norm_${i}.norm.flt-indels.vcf.gz
+    fi
+done
 
 ##################
 ### Statistical analysis
 ##################
+echo "> run filter analysis: counting the number of variants per VCF file"
+
+START=2
+END=100
+STEP=4
+
+echo "threshold,count" > $WORK_DIR/reports/filter/vcf_stats.csv
+for i in $(seq $START $STEP $END); do
+    c=$(bcftools filter --IndelGap $i $WORK_DIR/reports/norm/aln_output_norm.norm.vcf.gz \
+        | grep -v '^#' | wc -l)
+    echo "$i,$c" >> $WORK_DIR/reports/filter/vcf_stats.csv # >>: to add sthing at the end of the file
+done
