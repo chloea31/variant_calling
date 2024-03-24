@@ -94,8 +94,15 @@ if [ ! -d $WORK_DIR/reports/bwa_alignment ]; then
     mkdir -p $WORK_DIR/reports/bwa_alignment
 fi
 
+if [[ ! -f $WORK_DIR/reports/bwa_alignment/aln_output.sam ]]; then
+    bwa mem "@RG\tID:1\tPL:ILLUMINA\tSM:HG002" $WORK_DIR/data/interm/db $WORK_DIR/data/raw/reads.fastq \
+        | samtools view -h -r "HG002" \
+        | samtools sort -o $WORK_DIR/reports/bwa_alignment/aln_output.sam 
+    # > $WORK_DIR/reports/bwa_alignment/aln_output.sam        
+fi
+
 if [[ ! -f $WORK_DIR/reports/bwa_alignment/aln_output.bam ]]; then
-    bwa mem $WORK_DIR/data/interm/db $WORK_DIR/data/raw/reads.fastq \
+    bwa mem -R "@RG\tID:1\tPL:ILLUMINA\tSM:HG002" $WORK_DIR/data/interm/db $WORK_DIR/data/raw/reads.fastq \
         | samtools view -bS -h \
         | samtools sort -o $WORK_DIR/reports/bwa_alignment/aln_output.bam 
     # > $WORK_DIR/reports/bwa_alignment/aln_output.sam        
