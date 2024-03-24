@@ -95,8 +95,8 @@ if [ ! -d $WORK_DIR/reports/bwa_alignment ]; then
 fi
 
 if [[ ! -f $WORK_DIR/reports/bwa_alignment/aln_output.sam ]]; then
-    bwa mem "@RG\tID:1\tPL:ILLUMINA\tSM:HG002" $WORK_DIR/data/interm/db $WORK_DIR/data/raw/reads.fastq \
-        | samtools view -h -r "HG002" \
+    bwa mem -R "@RG\tID:1\tPL:ILLUMINA\tSM:HG002" $WORK_DIR/data/interm/db $WORK_DIR/data/raw/reads.fastq \
+        | samtools view -h \
         | samtools sort -o $WORK_DIR/reports/bwa_alignment/aln_output.sam 
     # > $WORK_DIR/reports/bwa_alignment/aln_output.sam        
 fi
@@ -181,3 +181,21 @@ for i in $(seq $START $STEP $END); do
         | grep -v '^#' | wc -l)
     echo "$i,$c" >> $WORK_DIR/reports/filter/vcf_stats.csv # >>: to add sthing at the end of the file
 done
+
+##################
+### SVtyper
+##################
+
+conda deactivate 
+conda activate SVtyper
+
+if [ ! -d $WORK_DIR/reports/svtyper_result ]; then
+    mkdir -p $WORK_DIR/reports/svtyper_result
+fi
+
+if [[ ! -f $WORK_DIR/reports/svtyper_result/svtyper_aln_output.vcf ]]; then
+    svtyper -i $WORK_DIR/reports/vcf/aln_output_calls.vcf.gz \
+        -B $WORK_DIR/reports/bwa_alignment/aln_output_without_sort.bam \
+        -T $WORK_DIR/data/raw/ref.fa \
+        -o $WORK_DIR/reports/svtyper_result/svtyper_aln_output.vcf
+fi
