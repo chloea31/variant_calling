@@ -186,16 +186,16 @@ done
 ### SVtyper
 ##################
 
-conda deactivate 
-conda activate SVtyper
+# conda deactivate 
+# conda activate SVtyper
 
-if [ ! -d $WORK_DIR/reports/svtyper_result ]; then
-    mkdir -p $WORK_DIR/reports/svtyper_result
-fi
+# if [ ! -d $WORK_DIR/reports/svtyper_result ]; then
+#     mkdir -p $WORK_DIR/reports/svtyper_result
+# fi
 
-if [[ ! -f $WORK_DIR/reports/svtyper_result/svtyper_aln_output.vcf ]]; then
-    svtyper -i $WORK_DIR/reports/vcf/aln_output_calls.vcf.gz \
-        -B $WORK_DIR/reports/bwa_alignment/aln_output_without_sort.bam \
-        -T $WORK_DIR/data/raw/ref.fa \
-        -o $WORK_DIR/reports/svtyper_result/svtyper_aln_output.vcf
-fi
+# if [[ ! -f $WORK_DIR/reports/svtyper_result/svtyper_aln_output.vcf ]]; then
+#     svtyper -i $WORK_DIR/reports/vcf/aln_output_calls.vcf.gz \
+#         -B $WORK_DIR/reports/bwa_alignment/aln_output_without_sort.bam \
+#         -T $WORK_DIR/data/raw/ref.fa \
+#         -o $WORK_DIR/reports/svtyper_result/svtyper_aln_output.vcf
+# fi
