@@ -10,7 +10,7 @@
 <a name="descrp"></a>
 
 ## Description
-The goal of this project is to...
+The goal of this project is to implement a small variant calling pipeline using .fastq files from Illumina sequencing device.
 
 #### The pipeline is designed as follow:
 
@@ -43,7 +43,7 @@ Run ```conda activate myenv.yml``` to install the environment.
 <a name="authors"></a> 
 
 ## Author
-This project is developed by...
+This project is developed by Chloé Aujoulat.
 
 <a name="references"></a> 
 
